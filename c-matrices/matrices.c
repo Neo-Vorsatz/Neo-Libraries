@@ -745,3 +745,4 @@ bool mxSolveGauss(matrix *write, const matrix *transform, const matrix *result) 
 /*================================*/
 
 #undef __FAIL
+#undef __INF_SOLUTIONS

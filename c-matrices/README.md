@@ -47,14 +47,14 @@ Standard: `stdbool.h`<br>
 This Repository: None
 
 ## API Reference
-### Data Structures
-#### Complex Number
-This is a struct containing two variables that determine the value of the complex number, as well as whether these variables represents rectangular or polar form. Create a complex number like you would any other struct:
-```c
-complex myComplexNum;
-```
-then `myComplexNum` will be a struct representing a complex number.
+### Macros
+#### Matrix Size
+You can define a macro called `MX_SIZE` before you `#include` the module, and this will modify the maximum size of the matrices.
 
+#### Matrix Element
+You can define a macro called `MX_ELEMENT` before you `#include` the module, and this will modify the data type used in matrices (assigned to the `mxElement_t` type).
+
+### Data Structures
 #### Matrix
 This is a struct containing a 2-dimensional array of elements (the matrix) as well as the size of the matrix. Create a matrix like you would any other struct:
 ```c

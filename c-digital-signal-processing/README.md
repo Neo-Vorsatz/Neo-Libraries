@@ -37,7 +37,7 @@ git clone https://github.com/Neo-Vorsatz/Neo-Libraries.git
 ```
 
 This module has the following dependencies:<br>
-Standard: `math.h`<br>
+Standard: `math.h`, `stdbool.h`<br>
 This Repository: `data_handling.h`, `complex_numbers.h`
 
 ## API Reference
