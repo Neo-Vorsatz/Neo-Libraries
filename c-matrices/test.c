@@ -1,6 +1,6 @@
-// Programme to test the matrices library; Matrix
+// Programme to test the matrices library
 // by Neo Vorsatz
-// Last updated: 25 December 2025
+// Last updated: 29 May 2026
 
 #include <stdio.h>
 

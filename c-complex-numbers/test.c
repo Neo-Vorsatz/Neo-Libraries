@@ -1,4 +1,4 @@
-// Programme to test the complex numbers library; ComplexNumbers
+// Programme to test the complex numbers library
 // by Neo Vorsatz
 // Last updated: 25 December 2025
 

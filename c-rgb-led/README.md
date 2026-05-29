@@ -11,27 +11,35 @@ This module was designed with the intention of being embedded-friendly:
 
 ## Quick Start
 ```c
-#include <stdio.h>
-#define MX_SIZE 2
-#include "matrices.h"
+#include <Arduino.h>
+#include "rgb_led.h"
 
-int main() {
-  //Create transformation matrix
-  matrix transform;
-  mxElement_t elements[2][2] = {{1,2},{3,1}};
-  mxSet(&transform, 2, 2, elements);
+//Pin assignments
+#define PIN_RED   9
+#define PIN_GREEN 10
+#define PIN_BLUE  11
 
-  //Create resultant vector
-  matrix result;
-  mxSetSize(&result, 2, 1);
-  mxElement_t vector[2] = {4,7};
-  mxWriteColumn(&result,0,vector);
+void writeColour(rgbCode code) {
+  unsigned int r, g, b;
+  rlWriteValues(&r, &g, &b, &RL_DEFAULT_SETTINGS, code);
+  analogWrite(PIN_RED, r);
+  analogWrite(PIN_GREEN, g);
+  analogWrite(PIN_BLUE, b);
+}
 
-  //Solve for first element of the (first) input vector
-  mxElement_t x = mxSolveCramer(&transform, &result, 0, 0);
-  printf("X Coordinate: %f\n", x);
+void setup() {
+  pinMode(PIN_RED, OUTPUT);
+  pinMode(PIN_GREEN, OUTPUT);
+  pinMode(PIN_BLUE, OUTPUT);
+}
 
-  return 0;
+void loop() {
+  //Rainbow cycle
+  for (float hue=0.0f; hue<360.0f; hue+=1.0f) {
+    rgbCode colour = rlHSVToRGB(hue, 1.0f, 1.0f);
+    writeColour(colour);
+    delay(10);
+  }
 }
 ```
 

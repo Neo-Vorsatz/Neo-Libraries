@@ -1,4 +1,4 @@
-// Programme to test the digital signal processing library; DigitalSignalProcessing
+// Programme to test the digital signal processing library
 // by Neo Vorsatz
 // Last updated: 25 December 2025
 

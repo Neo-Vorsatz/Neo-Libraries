@@ -1,4 +1,4 @@
-// Programme to test the data handling library; DataHandling
+// Programme to test the data handling library
 // by Neo Vorsatz
 // Last updated: 25 December 2025
 
