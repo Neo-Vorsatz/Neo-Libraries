@@ -1,7 +1,7 @@
 // Digial Signal Processing Library, for processing signals
 // Implementation file
 // by Neo Vorsatz
-// Last updated: 14 January 2026
+// Last updated: 30 May 2026
 
 #include <math.h>
 #include "digital_signal_processing.h"
@@ -17,7 +17,7 @@
 #include "../c-data-handling/data_handling.h"
 #include "../c-complex-numbers/complex_numbers.h"
 
-/* SYSTEMS ================================*/
+/* SIGNALS ================================*/
 
 //Sets the members of a signal struct
 void dsNewSignal(signal *write, const double *samples, unsigned int used_len, unsigned int max_len) {
@@ -26,14 +26,8 @@ void dsNewSignal(signal *write, const double *samples, unsigned int used_len, un
   write->max_len = max_len;
 }
 
-//Sets the members of a system struct
-void dsNewSystem(system *write, const signal *impulse_response, const signal *history) {
-  write->imp_resp = *impulse_response;
-  write->history = *history;
-}
-
 //Sets a signal to a pulse
-bool dsPulse(signal *write, double height, unsigned int width, unsigned int delay) {
+bool dsSigPulse(signal *write, double height, unsigned int width, unsigned int delay) {
   //For each sample before the pulse
   for (unsigned int i=0; i<delay; i++) {
     //Set sample to 0
@@ -58,12 +52,12 @@ bool dsPulse(signal *write, double height, unsigned int width, unsigned int dela
 }
 
 //Sets a signal to an impulse
-bool dsImpulse(signal *write, double size, unsigned int delay) {
-  return dsPulse(write, size, 1, delay);
+bool dsSigImpulse(signal *write, double size, unsigned int delay) {
+  return dsSigPulse(write, size, 1, delay);
 }
 
 //Sets a signal to a step
-bool dsStep(signal *write, double height, unsigned int delay) {
+bool dsSigStep(signal *write, double height, unsigned int delay) {
   //Set new length
   write->used_len = write->max_len;
   //Assume nothing goes wrong
@@ -88,7 +82,7 @@ bool dsStep(signal *write, double height, unsigned int delay) {
 }
 
 //Sets a signal to a ramp
-bool dsRamp(signal *write, double slope, unsigned int delay) {
+bool dsSigRamp(signal *write, double slope, unsigned int delay) {
   //Set new length
   write->used_len = write->max_len;
   //Assume nothing goes wrong
@@ -110,6 +104,41 @@ bool dsRamp(signal *write, double slope, unsigned int delay) {
     height += slope;
     //Set sample to the increased height
     write->samples[i] = height;
+  }
+  //Return
+  return success;
+}
+
+//Adds two signals
+bool dsAddSignals(signal *write, const signal *read1, const signal *read2) {
+  //Assume nothing goes wrong
+  bool success = true;
+  //Get the length of the longer signal
+  unsigned int len;
+  if (read1->used_len>read2->used_len) {
+    len = read1->used_len;
+  } else {
+    len = read2->used_len;
+  }
+  //Limit the length
+  if (len>write->max_len) {
+    len = write->max_len;
+    success = false;
+  }
+  //Update used length
+  write->used_len = len;
+  //For each sample
+  for (unsigned int i=0; i<len; i++) {
+    //Set the sample to 0
+    write->samples[i] = 0.0;
+    //Add the first signal
+    if (i<read1->used_len) {
+      write->samples[i] += read1->samples[i];
+    }
+    //Add the second signal
+    if (i<read2->used_len) {
+      write->samples[i] += read2->samples[i];
+    }
   }
   //Return
   return success;
@@ -191,6 +220,145 @@ bool dsConvolve(signal *write, const signal *read1, const signal *read2) {
   write->used_len = len;
   //Return
   return success;
+}
+
+/*================================*/
+/* SYSTEMS ================================*/
+
+//Sets the members of a system struct
+void dsNewSystem(system *write, const signal *impulse_response, const signal *history) {
+  write->imp_resp = *impulse_response;
+  write->history = *history;
+}
+
+//Applies a system to a signal
+bool dsApplySystem(signal *write, system *sys, const signal *sig, bool remember) {
+  //Extend the signal with the system's history
+  unsigned int ext_len = sys->history.used_len+sig->used_len;
+  double extended_samples[ext_len];
+  for (unsigned int i=0; i<sys->history.used_len; i++) {
+    extended_samples[i] = sys->history.samples[i];
+  }
+  for (unsigned int i=0; i<sig->used_len; i++) {
+    extended_samples[sys->history.used_len+i] = sig->samples[i];
+  }
+  signal ext_sig = {extended_samples, ext_len, ext_len};
+  //Update the history of the system
+  if (remember) {
+    if (ext_len>sys->history.max_len) {
+      dsTimeShift(&sys->history, &ext_sig, -ext_len+sys->history.max_len);
+      sys->history.used_len = sys->history.max_len;
+    } else {
+      dsTimeShift(&sys->history, &ext_sig, 0); //Copy
+      sys->history.used_len = ext_len;
+    } 
+  }
+  //Convolve the extended signal with the impulse response
+  return dsConvolve(write, &ext_sig, &sys->imp_resp);
+}
+
+//Resets the history of a system
+void dsResetSystem(system *sys) {
+  sys->history.used_len = 0;
+}
+
+//Sets a system to a scaling constant
+bool dsSysScaling(system *write, double scaling) {
+  return dsSigPulse(&write->imp_resp, scaling, 1, 0);
+}
+
+//Sets a system to a delay
+bool dsSysDelay(system *write, unsigned int delay, double scaling) {
+  return dsSigPulse(&write->imp_resp, scaling, 1, delay);
+}
+
+//Sets a system to an integrator
+bool dsSysIntegrator(system *write, double scaling) {
+  return dsSigStep(&write->imp_resp, scaling, 0);
+}
+
+//Sets a system to a differentiator
+bool dsSysDifferentiator(system *write, double scaling) {
+  bool success = dsSigPulse(&write->imp_resp, -scaling, 1, 1);
+  write->imp_resp.samples[0] = scaling;
+  return success;
+}
+
+//Sets a system to a moving average filter
+bool dsSysMovingAverage(system *write, unsigned int width) {
+  return dsSigPulse(&write->imp_resp, 1.0/width, width, 0);
+}
+
+//Sets a system to a first-order lowpass filter
+bool dsSysLowpass(system *write, double gain, double cutoff, double sample_rate) {
+  /*
+  First-order lowpass filter has impulse response
+  h(t) = K*w*e^(-w*t)
+  where K is the gain, and w is the cutoff frequency.
+  An increased sampling_rate decreases the effect of w,
+  in the context of discrete-time.
+  */
+  if (write->imp_resp.max_len<1) {
+    return false;
+  }
+  //Calculate the discrete w
+  double w = cutoff/sample_rate;
+  //Calculate e raised to the power of -w
+  double e2w = exp(-w);
+  //Set the initial value at t=0
+  write->imp_resp.samples[0] = gain*w;
+  //Decay the rest of the impulse response
+  for (unsigned int i=1; i<write->imp_resp.max_len; i++) {
+    write->imp_resp.samples[i] = write->imp_resp.samples[i-1]*e2w;
+  }
+  //Set the used length
+  write->imp_resp.used_len = write->imp_resp.max_len;
+  //Return
+  return true;
+}
+
+//Sets a system to a first-order highpass filter
+bool dsSysHighpass(system *write, double gain, double cutoff, double sample_rate) {
+  /*
+  First-order highpass filter has impulse response
+  h(t) = K*d(t)-K*w*e^(-w*t)
+  where K is the gain, d(t) is the Dirac-delta, and w is the cutoff frequency.
+  An increased sampling_rate decreases the effect of w,
+  in the context of discrete-time.
+  */
+  if (write->imp_resp.max_len<1) {
+    return false;
+  }
+  //Create a negative lowpass filter
+  dsSysLowpass(write, -gain, cutoff, sample_rate);
+  //Add the Dirac-delta
+  write->imp_resp.samples[0] += gain;
+  //Return
+  return true;
+}
+
+//Adds two systems
+bool dsAddSystems(system *write, system *read1, system *read2) {
+  //Assume nothing goes wrong
+  bool success = true;
+  //Add impulse responses
+  if (!dsAddSignals(&write->imp_resp, &read1->imp_resp, &read2->imp_resp)) {
+    success = false;
+  }
+  //Add history
+  if (!dsAddSignals(&write->history, &read1->history, &read2->history)) {
+    success = false;
+  }
+  //Return
+  return true;
+}
+
+//Cascades two systems
+bool dsCascade(system *write, system *read1, system *read2) {
+  //Clear the history
+  write->history.used_len = 0;
+  //Convolve the impulse responses
+  return dsConvolve(&write->imp_resp, &read1->imp_resp, &read2->imp_resp);
 }
 
 /*================================*/

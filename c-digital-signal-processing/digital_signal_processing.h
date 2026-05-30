@@ -1,7 +1,7 @@
 // Digial Signal Processing Library, for processing signals
 // Header file
 // by Neo Vorsatz
-// Last updated: 14 January 2026
+// Last updated: 29 May 2026
 
 //Header guard
 #ifndef DIGITAL_SIGNAL_PROCESSING_H
@@ -19,15 +19,15 @@
 
 //Structure for signals
 typedef struct{
-  double *samples; //pointer to array of samples
-  unsigned int used_len; //number of samples
-  unsigned int max_len; //maximum number of samples
+  double *samples; //Pointer to array of samples
+  unsigned int used_len; //Number of samples
+  unsigned int max_len; //Maximum number of samples
 } signal;
 
 //Structure for a system
 typedef struct{
-  signal imp_resp; //impulse response
-  signal history; //past inputs
+  signal imp_resp; //Impulse response
+  signal history; //Past inputs
 } system;
 
 /*================================*/
