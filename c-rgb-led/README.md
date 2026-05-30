@@ -1,4 +1,4 @@
-# C RGB LED [Warning: Untested]
+# C RGB LED
 ## Overview
 This module is for controlling RGB LEDs, and is programmed in C for microcontrollers.<br>
 With it, you can calculate the PWM duty cycle needed for each LED (red, green and blue), taking into account the various voltage drops and series resistances. This module offers support for hex and HSV codes.
@@ -38,7 +38,7 @@ void loop() {
   for (float hue=0.0f; hue<360.0f; hue+=1.0f) {
     rgbCode colour = rlHSVToRGB(hue, 1.0f, 1.0f);
     writeColour(colour);
-    delay(10);
+    delay(20);
   }
 }
 ```

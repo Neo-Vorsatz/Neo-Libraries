@@ -42,6 +42,6 @@ With it, you can create, edit, and do computations with matrices, including but 
 - Guass elimination into Reduced Row Echelon form
 - Solving for vectors, using a transformation and matrix of resulting vectors
 
-## RGB LED [Warning: Untested]
+## RGB LED
 This module is for controlling RGB LEDs, and is programmed in C for microcontrollers.<br>
 With it, you can calculate the PWM duty cycle needed for each LED (red, green and blue), taking into account the various voltage drops and series resistances. This module offers support for hex and HSV codes.

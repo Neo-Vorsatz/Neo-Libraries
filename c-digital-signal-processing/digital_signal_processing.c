@@ -273,7 +273,7 @@ bool dsSysDelay(system *write, unsigned int delay, double scaling) {
 }
 
 //Sets a system to an integrator
-bool dsSysIntegrator(system *write, double scaling) {
+bool dsSysFiniteIntegrator(system *write, double scaling) {
   return dsSigStep(&write->imp_resp, scaling, 0);
 }
 

@@ -46,26 +46,6 @@
 #endif
 
 /*================================*/
-/* CONSTANTS ================================*/
-
-//Settings
-extern const rgbSettings RL_DEFAULT_SETTINGS;
-extern const rgbAdvancedSettings RL_DEFAULT_ADVANCED_SETTINGS;
-
-//Colours
-extern const rgbCode RL_RED;
-extern const rgbCode RL_GREEN;
-extern const rgbCode RL_BLUE;
-extern const rgbCode RL_WHITE;
-extern const rgbCode RL_BLACK;
-extern const rgbCode RL_YELLOW;
-extern const rgbCode RL_MAGENTA;
-extern const rgbCode RL_CYAN;
-extern const rgbCode RL_ORANGE;
-extern const rgbCode RL_PURPLE;
-extern const rgbCode RL_GRAY;
-
-/*================================*/
 /* TYPE DEFINITIONS ================================*/
 
 //Structure for a RGB code
@@ -112,6 +92,26 @@ typedef struct {
   //Common Anode
   bool common_anode;
 } rgbAdvancedSettings;
+
+/*================================*/
+/* CONSTANTS ================================*/
+
+//Settings
+extern const rgbSettings RL_DEFAULT_SETTINGS;
+extern const rgbAdvancedSettings RL_DEFAULT_ADVANCED_SETTINGS;
+
+//Colours
+extern const rgbCode RL_RED;
+extern const rgbCode RL_GREEN;
+extern const rgbCode RL_BLUE;
+extern const rgbCode RL_WHITE;
+extern const rgbCode RL_BLACK;
+extern const rgbCode RL_YELLOW;
+extern const rgbCode RL_MAGENTA;
+extern const rgbCode RL_CYAN;
+extern const rgbCode RL_ORANGE;
+extern const rgbCode RL_PURPLE;
+extern const rgbCode RL_GRAY;
 
 /*================================*/
 /* CREATING ================================*/
