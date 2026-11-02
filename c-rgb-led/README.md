@@ -10,7 +10,7 @@ This module was designed with the intention of being embedded-friendly:
 - Using singular precision (`float` instead of `double`)
 
 ## Quick Start
-```c
+```c++
 #include <Arduino.h>
 #include "rgb_led.h"
 

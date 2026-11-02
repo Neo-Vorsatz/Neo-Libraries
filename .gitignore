@@ -1,8 +1,6 @@
-#the executables created when running test.c
+# Executables created when compiling test scripts
+test
 *.exe
 
-#the VS Code settings
+# VS Code settings
 .vscode/
-
-#the program used to test Quick Start snippets
-test_quick_start.c
