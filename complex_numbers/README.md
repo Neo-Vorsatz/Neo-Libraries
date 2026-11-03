@@ -1,6 +1,9 @@
-# C Complex Numbers
+# Complex Numbers
+
+---
+
 ## Overview
-This module is for complex number operations in C.<br>
+This library is for complex number operations in C.<br>
 With it, you can create, edit, and do computations with complex numbers, including but not limited to:
 - Getting the magnitude of a complex number
 - Complex number multiplication
@@ -9,14 +12,33 @@ With it, you can create, edit, and do computations with complex numbers, includi
 
 Note: All angles are measured in radians.
 
+---
+
 ## Credits
 This module was made with the help of [Ambesiwe Sonka](https://github.com/Ambesiwe).
 
+---
+
 ## Features
-This module was designed with the intention of being embedded-friendly:
+This library was designed with the intention of being embedded-friendly:
 - Minimal memory footprint
 - No dynamic memory usage (no `malloc` and `free`)
 - Low namespace pollution (uses `cn` prefix)
+
+---
+
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | None |
+| Standard Library | `math.h`, `stdbool.h` |
+| Other | None |
+
+---
 
 ## Quick Start
 ```c
@@ -25,7 +47,7 @@ This module was designed with the intention of being embedded-friendly:
 
 int main() {
   complex z1 = cnRect(1.0, 2.0); //1+2i
-  complex z2 = cnPolar(3.0, 0.785); //5 @ pi/4
+  complex z2 = cnPolar(3.0, 0.785); //3 @ pi/4
 
   complex sum = cnAdd(z1, z2);
   printf("Real: %f, Imag: %f\n", cnReal(&sum), cnImag(&sum));
@@ -34,25 +56,27 @@ int main() {
 }
 ```
 
-## Installation & Dependencies
-Copy the header and implementation files anywhere where your C-compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.
-
-This module has the following dependencies:<br>
-Standard: `math.h`, `stdbool.h`<br>
-This Repository: None
+---
 
 ## API Reference
-### Macros
-#### Pi
-You can define a macro called `PI` before you `#include` the module, and this will modify the value of pi used throughout the module.
 
-### Data Structures
+---
+
+### Types
 #### Complex Number
 This is a struct containing two variables that determine the value of the complex number, as well as whether these variables represents rectangular or polar form. Create a complex number like you would any other struct:
 ```c
 complex myComplexNum;
 ```
-then `myComplexNum` will be a struct representing a complex number.
+An initialized instance can be created using any of the [Creating functions](#functions).
+
+---
+
+### Macros
+#### Pi
+You can define a macro called `PI` before you `#include` the library, and this will modify the value of pi used throughout the library.
+
+---
 
 ### Functions
 <details>

@@ -1,6 +1,9 @@
-# C Matrices
+# Matrices
+
+---
+
 ## Overview
-This module is for matrix operations in C.<br>
+This library is for matrix operations in C.<br>
 With it, you can create, edit, and do computations with matrices, including but not limited to:
 - Matrix multiplication
 - Getting the determinant of a square matrix
@@ -8,10 +11,27 @@ With it, you can create, edit, and do computations with matrices, including but 
 - Guass elimination into Reduced Row Echelon form
 - Solving for vectors, using a transformation and matrix of resulting vectors
 
+---
+
 ## Features
-This module was designed with the intention of being embedded-friendly:
+This library was designed with the intention of being embedded-friendly:
 - No dynamic memory usage (no `malloc` and `free`)
 - Low namespace pollution (uses `mx` prefix)
+
+---
+
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | None |
+| Standard Library | `stdbool.h` |
+| Other | None |
+
+---
 
 ## Quick Start
 ```c
@@ -39,14 +59,22 @@ int main() {
 }
 ```
 
-## Installation & Dependencies
-Copy the header and implementation files anywhere where your C-compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.
-
-This module has the following dependencies:<br>
-Standard: `stdbool.h`<br>
-This Repository: None
+---
 
 ## API Reference
+
+---
+
+### Types
+#### Matrix
+This is a struct containing a 2-dimensional array of elements (the matrix) as well as the size of the matrix. Create a matrix like you would any other struct:
+```c
+matrix myMatrix;
+```
+An initialized instance can't be created directly. Instead use the [Writing functions](#functions) to set the elements of the matrix.
+
+---
+
 ### Macros
 #### Matrix Size
 You can define a macro called `MX_SIZE` before you `#include` the module, and this will modify the maximum size of the matrices.
@@ -54,13 +82,7 @@ You can define a macro called `MX_SIZE` before you `#include` the module, and th
 #### Matrix Element
 You can define a macro called `MX_ELEMENT` before you `#include` the module, and this will modify the data type used in matrices (assigned to the `mxElement_t` type).
 
-### Data Structures
-#### Matrix
-This is a struct containing a 2-dimensional array of elements (the matrix) as well as the size of the matrix. Create a matrix like you would any other struct:
-```c
-matrix myMatrix;
-```
-then `myMatrix` will be a struct representing a matrix.
+---
 
 ### Functions
 <details>

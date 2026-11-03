@@ -1,4 +1,7 @@
 # Braccio Actuation
+
+---
+
 ## Overview
 This library is a re-implementation of the [Braccio library](https://github.com/arduino-libraries/Braccio) for Arduino. This implementation offers more functionality, by providing more granular control as well as advanced features. A link was provided for more information about the original library, but it appears to be a dead link:
 [Tinkerkit Braccio](http://www.arduino.org/products/tinkerkit/17-arduino-tinkerkit/arduino-tinkerkit-braccio)
@@ -10,12 +13,29 @@ All of the code examples are obsolete if using this library. I hope the example 
 This library originated in a project for the University of Cape Town:<br>
 [Secure Teleoperation of a Robotic Arm using Computer Vision](https://github.com/Neo-Vorsatz-UCT/eee4022s)
 
+---
+
 ## Features
 - Minimal reliance on C++ features
 - Non-blocking actuation with exponential smoothing
 - No dynamic memory usage (no `malloc` and `free`)
 - Low namespace pollution (uses `ba` prefix)
 - Uses singular precision (`float` instead of `double`)
+
+---
+
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | None |
+| Standard Library | None |
+| Other | `Arduino.h`, `Servo.h` |
+
+---
 
 ## Quick Start
 ```c++
@@ -57,17 +77,12 @@ void loop() {
 }
 ```
 
-## Installation & Dependencies
-Copy the header and implementation files anywhere where your compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.
-
-This module has the following dependencies:<br>
-| Source | Dependencies |
-| - | - |
-| Standard Library | None |
-| This Repository | None |
-| Other | `Arduino.h`, `Servo.h` |
+---
 
 ## API Reference
+
+---
+
 ### Types
 #### Vector
 This is a struct containing six `float`, which each represent an angle for a joint of the Braccio.
@@ -76,6 +91,8 @@ Create a vector like you would any other struct:
 vector_t myVector;
 ```
 An initialized instance can be created using `baNewVector()`.
+
+---
 
 ### Macros
 #### Default Soft Start
@@ -99,9 +116,13 @@ baInit(BA_DEFAULT_SOFT_START, connections);
 #### Position Tolerance
 The value of `BA_POS_TOLERANCE` is 25.0f, and is the default acceptable sum of squared errors, when comparing the target and actual position of each of the motors.
 
+---
+
 ### Constants
 #### Default Connection
 `BA_DEFAULT_CONN` is a 6-element array of integers that describes the default sequence of motor connect (1 to 6).
+
+---
 
 ### Functions
 <details>
@@ -190,6 +211,8 @@ Returns `true` if the position was within the mechanical constraints, otherwise 
 Note that most controlling functions call this automatically.
 
 </details>
+
+---
 
 ## License
 In accordance with the original library, this library is licensed under the GNU Lesser General Public License v2.1, as published by the Free Software Foundation.

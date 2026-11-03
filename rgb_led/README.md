@@ -1,13 +1,33 @@
-# C RGB LED
+# RGB LED
+
+---
+
 ## Overview
-This module is for controlling RGB LEDs, and is programmed in C for microcontrollers.<br>
-With it, you can calculate the PWM duty cycle needed for each LED (red, green and blue), taking into account the various voltage drops and series resistances. This module offers support for hex and HSV codes.
+This library is for controlling RGB LEDs, and is programmed in C for microcontrollers.<br>
+With it, you can calculate the PWM duty cycle needed for each LED (red, green and blue), taking into account the various voltage drops and series resistances. This library offers support for hex and HSV codes.
+
+---
 
 ## Features
-This module was designed with the intention of being embedded-friendly:
+This library was designed with the intention of being embedded-friendly:
 - No dynamic memory usage (no `malloc` and `free`)
 - Low namespace pollution (uses `rl` prefix)
 - Using singular precision (`float` instead of `double`)
+
+---
+
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | None |
+| Standard Library | `math.h`, `stdbool.h` |
+| Other | None |
+
+---
 
 ## Quick Start
 ```c++
@@ -43,14 +63,36 @@ void loop() {
 }
 ```
 
-## Installation & Dependencies
-Copy the header and implementation files anywhere where your C-compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.
-
-This module has the following dependencies:<br>
-Standard: `math.h`, `stdbool.h`<br>
-This Repository: None
+---
 
 ## API Reference
+
+---
+
+### Types
+#### RGB Code
+This is a struct containing three `unsigned char`, for the red, green and blue values, and hence is able to represent a colour. Create an RGB code like you would any other struct:
+```c
+rgbCode myColour;
+```
+An initialized instance can be created using `rlRGBCode()` or `RGB()`.
+
+#### Settings
+This is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with. Create settings like you would any other struct:
+```c
+rgbSettings mySettings;
+```
+A declared instance can be set to the defaults using `rlDefaultSettings()`.
+
+#### Advanced Settings
+Similar to the `rgbSettings` struct, this is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with, but allows for more customisation. This struct doesn't assume all LEDs have the same series resistance, voltage supply, nor maximum writeable integer. Create advanced settings like you would any other struct:
+```c
+rgbAdvancedSettings myAdvSettings;
+```
+A declared instance can be set to the defaults using `rlDefaultSettingsAv()`, or an existing instance of `rgbSettings` can be promoted to `rgbAdvancedSettings` using `rlAdvance()`.
+
+---
+
 ### Macros
 #### Red LED Voltage Drop
 You can define a macro called `RL_RED_VOLTAGE_DROP` before you `#include` the module, and this will modify the default voltage drop for red LEDs.
@@ -73,6 +115,8 @@ You can define a macro called `RL_MAX_INT` before you `#include` the module, and
 #### Common Anode
 You can define a macro called `RL_COMMON_ANODE` before you `#include` the module, and this will modify whether the default settings assume RGB LEDs to have a common-anode or common-cathode configuration. Use `true` (1) or `false` (0) when defining this macro.
 
+---
+
 ### Constants
 | Constant | Description |
 | - | - |
@@ -90,27 +134,7 @@ You can define a macro called `RL_COMMON_ANODE` before you `#include` the module
 | `RL_PURPLE` | `rgbCode` struct for the colour purple |
 | `RL_GRAY` | `rgbCode` struct for the colour gray |
 
-### Data Structures
-#### RGB Code
-This is a struct containing three `unsigned char`, for the red, green and blue values, and hence is able to represent a colour. Create an RGB code like you would any other struct:
-```c
-rgbCode myColour;
-```
-then `myColour` will be a struct representing a colour/RGB code.
-
-#### Settings
-This is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with. Create settings like you would any other struct:
-```c
-rgbSettings mySettings;
-```
-then `mySettings` will be a struct representing the configuration of an RGB LED.
-
-#### Advanced Settings
-Similar to the `rgbSettings` struct, this is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with, but allows for more customisation. This struct doesn't assume all LEDs have the same series resistance, voltage supply, nor maximum writable integer. Create advanced settings like you would any other struct:
-```c
-rgbAdvancedSettings myAdvSettings;
-```
-then `myAdvSettings` will be a struct representing the advanced (more customisable) configuration of an RGB LED.
+---
 
 ### Functions
 <details>

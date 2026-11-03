@@ -1,21 +1,42 @@
-# C Digital Signal Processing [Warning: In Production]
+# Digital Signal Processing
+> [!WARNING]
+> This library is currently incomplete, and so promises no guarantees of functionality nor consistent APIs.
+
+---
+
 ## Overview
-This module is for processing and generating signals in C.<br>
+This library is for processing and generating signals in C.<br>
 Some functionality this module offers is:
 - Getting the DC or AC components of a signal
 - Getting the energy and power of a signal
 - Bringing a signal to and from the frequency domain (Fourier)
 - Performing real-time operations like filtering
 
-Note: All angles are measured in radians.
+> [!NOTE]
+> All angles are measured in radians.
+
+---
 
 ## Features
-This module was designed with the intention of being embedded-friendly:
+This library was designed with the intention of being embedded-friendly:
 - Minimal memory footprint
 - No dynamic memory usage (no `malloc` and `free`)*
 - Low namespace pollution (uses `ds` prefix)
 
-*may change
+---
+
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | `complex_numbers.h`, `data_handling.h` |
+| Standard Library | `math.h`, `stdbool.h` |
+| Other | None |
+
+---
 
 ## Quick Start
 ```c
@@ -29,23 +50,21 @@ int main() {
 }
 ```
 
-## Installation & Dependencies
-Copy the folder (and its contents) of this module, and the other modules it depends on. Place the copies anywhere where your C-compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.<br>
-It's recommended to copy this entire repository into somewhere you keep your installed libraries.
-```bash
-git clone https://github.com/Neo-Vorsatz/Neo-Libraries.git
-```
-
-This module has the following dependencies:<br>
-Standard: `math.h`, `stdbool.h`<br>
-This Repository: `data_handling.h`, `complex_numbers.h`
+---
 
 ## API Reference
+
+---
+
+### Types
+
+---
+
 ### Macros
 #### Pi
 You can define a macro called `PI` before you `#include` the module, and this will modify the value of pi used throughout the module.
 
-### Data Structures
+---
 
 ### Functions
 <details>

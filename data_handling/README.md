@@ -1,16 +1,23 @@
-# C Data Handling
+# Data Handling
+
+---
+
 ## Overview
-This module is for handling data and performing statistical calculations in C.<br>
+This library is for handling data and performing statistical calculations in C.<br>
 Some functionality this module offers is:
 - Getting the cumulative sum of data
 - Sorting data in ascending order, or reversing the order
 - Getting the mean, variance and standard deviation of a set of data
 
+---
+
 ## Features
-This module was designed with the intention of being embedded-friendly:
+This library was designed with the intention of being embedded-friendly:
 - Minimal memory footprint
 - No dynamic memory usage (no `malloc` and `free`)
 - Low namespace pollution (uses `dh` prefix)
+
+---
 
 ## Quick Start
 ```c
@@ -34,14 +41,25 @@ int main() {
 }
 ```
 
-## Installation & Dependencies
-Copy the header and implementation files anywhere where your C-compiler can find it (such as in the same directory as your main file). Then import the module like you would any other module, using `#include`.
+---
 
-This module has the following dependencies:<br>
-Standard: `math.h`<br>
-This Repository: None
+## Installation & Dependencies
+Copy the header and implementation files anywhere where your compiler can find it, such as in the same directory as your main file. In a development environment like the one PlatformIO provides, the recommendation is to copy this entire folder and put it inside `lib`.<br>
+Then import the library like you would any other library, using `#include`.
+
+This library has the following dependencies:<br>
+| Source | Dependencies |
+| - | - |
+| This Repository | None |
+| Standard Library | `math.h` |
+| Other | None |
+
+---
 
 ## API Reference
+
+---
+
 ### Functions
 <details>
 <summary>Click to view all Summing functions</summary>
