@@ -54,7 +54,7 @@ void setup() {
     }
 
     // Set a target
-    vector_t target = baNewVector(
+    baVector_t target = baNewVector(
         90.0f, // base <- forward
         90.0f, // joint1 <- upward
         90.0f, // joint2 <- upward
@@ -88,7 +88,7 @@ void loop() {
 This is a struct containing six `float`, which each represent an angle for a joint of the Braccio.
 Create a vector like you would any other struct:
 ```c++
-vector_t myVector;
+baVector_t myVector;
 ```
 An initialized instance can be created using `baNewVector()`.
 
@@ -132,7 +132,7 @@ The value of `BA_POS_TOLERANCE` is 25.0f, and is the default acceptable sum of s
 Initializes the Braccio arm operation.<br>
 Takes the soft start value, and the connector arrangement/order.
 
-`vector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw);`<br>
+`baVector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw);`<br>
 Creates a new vector.<br>
 Takes the value for the base, the value for the first joint, the value for the second joint, the value for the third joint, the value for the wrist, and the value for the claw.<br>
 Returns the new vector.
@@ -142,11 +142,11 @@ Returns the new vector.
 <details>
 <summary>Click to view all Reading functions</summary>
 
-`vector_t baGetTarget();`<br>
+`baVector_t baGetTarget();`<br>
 Gets the desired position the Braccio arm is aiming for.<br>
 Returns the desired position.
 
-`vector_t baGetPosition();`<br>
+`baVector_t baGetPosition();`<br>
 Gets the current position of the Braccio arm.<br>
 Return the current position.
 
@@ -164,13 +164,13 @@ Returns `true` if the arm is at the desired position, otherwise `false`.
 <details>
 <summary>Click to view all Controlling functions</summary>
 
-`bool baSetPosition(vector_t position);`<br>
+`bool baSetPosition(baVector_t position);`<br>
 Sets the position of the Braccio arm.<br>
 Takes the position to set the arm to.<br>
 Returns `true` if the position is within the mechanical constraints, otherwise `false`.<br>
 Note that this function is not recommended, because it'll cause jerking.
 
-`bool baUpdateTarget(vector_t target);`<br>
+`bool baUpdateTarget(baVector_t target);`<br>
 Updates the desired position of the Braccio arm.<br>
 Takes the desired position.<br>
 Returns `true` if the position is within the mechanical constraints, otherwise `false`.
@@ -179,7 +179,7 @@ Returns `true` if the position is within the mechanical constraints, otherwise `
 Steps the Braccio arm towards the desired position.<br>
 Note that this function is recommended, and should be called within a loop, along with `baUpdateTarget()`.
 
-`bool baMove(vector_t target);`<br>
+`bool baMove(baVector_t target);`<br>
 Handles the movement of the Braccio arm completely.<br>
 Takes the desired position.<br>
 Returns `true` if the position is within the mechanical constraints, otherwise `false`.<br>
@@ -199,12 +199,12 @@ Note that the filter's characteristic is stored as a time constant (tau), making
 <details>
 <summary>Click to view all Management functions</summary>
 
-`bool baTargetReachable(vector_t target);`<br>
+`bool baTargetReachable(baVector_t target);`<br>
 Checks if the target is reachable, given mechanical constraints.<br>
 Takes the desired position.<br>
 Returns `true` if the target is reachable, otherwise `false`.
 
-`bool baBoundPosition(vector_t *position);`<br>
+`bool baBoundPosition(baVector_t *position);`<br>
 Bounds a pos by the mechanical constraints.<br>
 Takes a pointer to the position to bound.<br>
 Returns `true` if the position was within the mechanical constraints, otherwise `false`.<br>

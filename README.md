@@ -12,7 +12,7 @@ git clone https://github.com/Neo-Vorsatz/Neo-Libraries.git
 The following table shows the dependencies of all libraries in this repository.
 | Source | Dependencies |
 | - | - |
-| Standard Library | `math.h`, `stdbool.h` |
+| Standard Library | `math.h`, `stdbool.h`, `string.h` |
 | Other | `Arduino.h`, `Servo.h` |
 
 ---

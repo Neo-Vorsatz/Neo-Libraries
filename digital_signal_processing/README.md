@@ -74,46 +74,46 @@ You can define a macro called `PI` before you `#include` the module, and this wi
 <details>
 <summary>Click to view all Electricity functions</summary>
 
-`double dsDC(const signal *read);`<br>
+`double dsDC(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the Direct-Current component of a signal.
 
-`bool dsAC(signal *write, const signal *read);`<br>
+`bool dsAC(dsSignal_t *write, const dsSignal_t *read);`<br>
 Removes the Direct-Current offset from a signal.<br>
 Takes a pointer to where the modified signal will be written, and a pointer to the signal.<br>
-Returns 1 (true) if the process was successful, otherwise 0 (false) if there was not enough memory in 'write'.
+Returns `true` if the process was successful, otherwise `false` if there was not enough memory in 'write'.
 
-`bool dsPower(signal *write, const signal *read);`<br>
+`bool dsPower(dsSignal_t *write, const dsSignal_t *read);`<br>
 Gets the power of the signal at each time step.<br>
 Takes a pointer to where the power of the signal will be written, and a pointer to the signal.<br>
-Returns 1 (true) if the process was successful, otherwise 0 (false) if there was not enough memory in 'write'.
+Returns `true` if the process was successful, otherwise `false` if there was not enough memory in 'write'.
 
-`double dsEnergy(const signal *read);`<br>
+`double dsEnergy(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the total energy of a signal.
 
-`bool dsCumSumEnergy(signal *write, signal *read);`<br>
+`bool dsCumSumEnergy(dsSignal_t *write, dsSignal_t *read);`<br>
 Gets the cumulative sum of energy of a signal.<br>
 Takes a pointer to where the cumulative sum of energy will be written, and a pointer to the signal.<br>
-Returns 1 (true) if the process was successful, otherwise 0 (false) if there was not enough memory in 'write'.
+Returns `true` if the process was successful, otherwise `false` if there was not enough memory in 'write'.
 
-`double dsAvgPower(const signal *read);`<br>
+`double dsAvgPower(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the average power of a signal.
 
-`double dsACRMS(const signal *read);`<br>
+`double dsACRMS(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the Alternating-Current Root-Mean-Square of a signal.
 
-`double dsRMS(const signal *read);`<br>
+`double dsRMS(const dsSignal_t*read);`<br>
 Takes a pointer to the signal.<br>
 Returns the Root-Mean-Square of a signal.
 
-`double dsDCPower(const signal *read);`<br>
+`double dsDCPower(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the Direct-Current power of a signal.
 
-`double dsACPower(const signal *read);`<br>
+`double dsACPower(const dsSignal_t *read);`<br>
 Takes a pointer to the signal.<br>
 Returns the Alternating-Current power of a signal.
 

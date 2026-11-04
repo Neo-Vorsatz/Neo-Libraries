@@ -39,27 +39,27 @@ This library has the following dependencies:<br>
 #define PIN_GREEN 10
 #define PIN_BLUE  11
 
-void writeColour(rgbCode code) {
-  unsigned int r, g, b;
-  rlWriteValues(&r, &g, &b, &RL_DEFAULT_SETTINGS, code);
-  analogWrite(PIN_RED, r);
-  analogWrite(PIN_GREEN, g);
-  analogWrite(PIN_BLUE, b);
+void writeColour(rlRGB code) {
+    unsigned int r, g, b;
+    rlWriteValues(&r, &g, &b, &RL_DEFAULT_SETTINGS, code);
+    analogWrite(PIN_RED, r);
+    analogWrite(PIN_GREEN, g);
+    analogWrite(PIN_BLUE, b);
 }
 
 void setup() {
-  pinMode(PIN_RED, OUTPUT);
-  pinMode(PIN_GREEN, OUTPUT);
-  pinMode(PIN_BLUE, OUTPUT);
+    pinMode(PIN_RED, OUTPUT);
+    pinMode(PIN_GREEN, OUTPUT);
+    pinMode(PIN_BLUE, OUTPUT);
 }
 
 void loop() {
-  //Rainbow cycle
-  for (float hue=0.0f; hue<360.0f; hue+=1.0f) {
-    rgbCode colour = rlHSVToRGB(hue, 1.0f, 1.0f);
-    writeColour(colour);
-    delay(20);
-  }
+    //Rainbow cycle
+    for (float hue=0.0f; hue<360.0f; hue+=1.0f) {
+        rlRGB colour = rlHSVToRGB(hue, 1.0f, 1.0f);
+        writeColour(colour);
+        delay(20);
+    }
 }
 ```
 
@@ -73,23 +73,23 @@ void loop() {
 #### RGB Code
 This is a struct containing three `unsigned char`, for the red, green and blue values, and hence is able to represent a colour. Create an RGB code like you would any other struct:
 ```c
-rgbCode myColour;
+rlRGB myColour;
 ```
-An initialized instance can be created using `rlRGBCode()` or `RGB()`.
+An initialized instance can be created using `rlrlRGB()` or `RGB()`.
 
 #### Settings
 This is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with. Create settings like you would any other struct:
 ```c
-rgbSettings mySettings;
+rlSettings mySettings;
 ```
 A declared instance can be set to the defaults using `rlDefaultSettings()`.
 
 #### Advanced Settings
-Similar to the `rgbSettings` struct, this is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with, but allows for more customisation. This struct doesn't assume all LEDs have the same series resistance, voltage supply, nor maximum writeable integer. Create advanced settings like you would any other struct:
+Similar to the `rlSettings` struct, this is a struct that stores the settings/configuration of an RGB LED and how it's connected/interfaced with, but allows for more customisation. This struct doesn't assume all LEDs have the same series resistance, voltage supply, nor maximum writeable integer. Create advanced settings like you would any other struct:
 ```c
-rgbAdvancedSettings myAdvSettings;
+rlAdvancedSettings myAdvSettings;
 ```
-A declared instance can be set to the defaults using `rlDefaultSettingsAv()`, or an existing instance of `rgbSettings` can be promoted to `rgbAdvancedSettings` using `rlAdvance()`.
+A declared instance can be set to the defaults using `rlDefaultSettingsAv()`, or an existing instance of `rlSettings` can be promoted to `rlAdvancedSettings` using `rlAdvance()`.
 
 ---
 
@@ -120,19 +120,19 @@ You can define a macro called `RL_COMMON_ANODE` before you `#include` the module
 ### Constants
 | Constant | Description |
 | - | - |
-| `RL_DEFAULT_SETTINGS` | `rgbSettings` struct with the default settings |
-| `RL_DEFAULT_ADVANCED_SETTINGS` | `rgbAdvancedSettings` struct with the default settings |
-| `RL_RED` | `rgbCode` struct for the colour red |
-| `RL_GREEN` | `rgbCode` struct for the colour green |
-| `RL_BLUE` | `rgbCode` struct for the colour blue |
-| `RL_WHITE` | `rgbCode` struct for the colour white |
-| `RL_BLACK` | `rgbCode` struct for the colour black |
-| `RL_YELLOW` | `rgbCode` struct for the colour yellow |
-| `RL_MAGENTA` | `rgbCode` struct for the colour magenta |
-| `RL_CYAN` | `rgbCode` struct for the colour cyan |
-| `RL_ORANGE` | `rgbCode` struct for the colour orange |
-| `RL_PURPLE` | `rgbCode` struct for the colour purple |
-| `RL_GRAY` | `rgbCode` struct for the colour gray |
+| `RL_DEFAULT_SETTINGS` | `rlSettings` struct with the default settings |
+| `RL_DEFAULT_ADVANCED_SETTINGS` | `rlAdvancedSettings` struct with the default settings |
+| `RL_RED` | `rlRGB` struct for the colour red |
+| `RL_GREEN` | `rlRGB` struct for the colour green |
+| `RL_BLUE` | `rlRGB` struct for the colour blue |
+| `RL_WHITE` | `rlRGB` struct for the colour white |
+| `RL_BLACK` | `rlRGB` struct for the colour black |
+| `RL_YELLOW` | `rlRGB` struct for the colour yellow |
+| `RL_MAGENTA` | `rlRGB` struct for the colour magenta |
+| `RL_CYAN` | `rlRGB` struct for the colour cyan |
+| `RL_ORANGE` | `rlRGB` struct for the colour orange |
+| `RL_PURPLE` | `rlRGB` struct for the colour purple |
+| `RL_GRAY` | `rlRGB` struct for the colour gray |
 
 ---
 
@@ -140,21 +140,21 @@ You can define a macro called `RL_COMMON_ANODE` before you `#include` the module
 <details>
 <summary>Click to view all Creating functions</summary>
 
-`rgbCode rlRGBCode(unsigned char red, unsigned char green, unsigned char blue);`<br>
+`rlRGB rlrlRGB(unsigned char red, unsigned char green, unsigned char blue);`<br>
 Takes the red value, the green value, and the blue value.<br>
-Returns a new rgbCode struct.<br>
-Alternatively, the macro `RGB(r,g,b)` can be used when declaring+initialising an rgbCode.
+Returns a new rlRGB struct.<br>
+Alternatively, the macro `RGB(r,g,b)` can be used when declaring+initialising an rlRGB.
 
-`void rlDefaultSettings(rgbSettings *write);`<br>
-Sets rgbSettings to default values.<br>
+`void rlDefaultSettings(rlSettings *write);`<br>
+Sets rlSettings to default values.<br>
 Takes a pointer to where the settings will be written.
 
-`void rlDefaultSettingsAdv(rgbAdvancedSettings *write);`<br>
-Sets rgbAdvancedSettings to default values.<br>
+`void rlDefaultSettingsAdv(rlAdvancedSettings *write);`<br>
+Sets rlAdvancedSettings to default values.<br>
 Takes a pointer to where the settings will be written.
 
-`void rlAdvance(rgbAdvancedSettings *write, const rgbSettings *settings);`<br>
-Sets rgbAdvancedSettings to the same values as rgbSettings.<br>
+`void rlAdvance(rlAdvancedSettings *write, const rlSettings *settings);`<br>
+Sets rlAdvancedSettings to the same values as rlSettings.<br>
 Takes a pointer to where the advanced settings will be written, and a pointer to the settings.
 
 </details>
@@ -162,7 +162,7 @@ Takes a pointer to where the advanced settings will be written, and a pointer to
 <details>
 <summary>Click to view all Calculations functions</summary>
 
-`rgbCode rlHexToDec(const char hex[6]);`<br>
+`rlRGB rlHexToDec(const char hex[6]);`<br>
 Takes a pointer to a hex code.<br>
 Returns an RGB code struct, equivalent to the hex code.
 
@@ -170,27 +170,27 @@ Returns an RGB code struct, equivalent to the hex code.
 Takes the maximum output voltage going to the LED, the voltage drop across the LED, the series resistance of the LED, and the power desired to go to the LED.<br>
 Returns the duty cycle needed for an amount of power, assuming common cathode.
 
-`void rlDutyCyclesAdv(float *red_duty_cycle, float *green_duty_cycle, float *blue_duty_cycle, const rgbAdvancedSettings *settings, rgbCode code);`<br>
+`void rlDutyCyclesAdv(float *red_duty_cycle, float *green_duty_cycle, float *blue_duty_cycle, const rlAdvancedSettings *settings, rlRGB code);`<br>
 Calculates the duty cycles needed to display an RGB colour.<br>
 Takes a pointer to where the red duty cycle will be written, a pointer to where the green duty cycle will be written, a pointer to where the blue duty cycle will be written, the settings of the RGB LED, and the RGB code.
 
-`void rlDutyCycles(float *red_duty_cycle, float *green_duty_cycle, float *blue_duty_cycle, const rgbSettings *settings, rgbCode code);`<br>
+`void rlDutyCycles(float *red_duty_cycle, float *green_duty_cycle, float *blue_duty_cycle, const rlSettings *settings, rlRGB code);`<br>
 Calculates the duty cycles needed to display an RGB colour.<br>
 Takes a pointer to where the red duty cycle will be written, a pointer to where the green duty cycle will be written, a pointer to where the blue duty cycle will be written, the settings of the RGB LED, and the RGB code.
 
-`void rlWriteValuesAdv(unsigned int *red, unsigned int *green, unsigned int *blue, const rgbAdvancedSettings *settings, rgbCode code);`<br>
+`void rlWriteValuesAdv(unsigned int *red, unsigned int *green, unsigned int *blue, const rlAdvancedSettings *settings, rlRGB code);`<br>
 Calculates the integers (likely for PWM) needed to display an RGB colour.<br>
 Takes a pointer to where the red integer will be written, a pointer to where the green integer will be written, a pointer to where the blue integer will be written, the settings of the RGB LED, and the RGB code.
 
-`void rlWriteValues(unsigned int *red, unsigned int *green, unsigned int *blue, const rgbSettings *settings, rgbCode code);`<br>
+`void rlWriteValues(unsigned int *red, unsigned int *green, unsigned int *blue, const rlSettings *settings, rlRGB code);`<br>
 Calculates the integers (likely for PWM) needed to display an RGB colour.<br>
 Takes a pointer to where the red integer will be written, a pointer to where the green integer will be written, a pointer to where the blue integer will be written, the settings of the RGB LED, and the RGB code.
 
-`rgbCode rlLerp(rgbCode start, rgbCode end, float percentage);`<br>
+`rlRGB rlLerp(rlRGB start, rlRGB end, float percentage);`<br>
 Takes the start RGB code, the end RGB code, and a percentage from 0 to 1.<br>
 Returns an RGB code that's the linear interpolation between two RGB codes.
 
-`rgbCode rlHSVToRGB(float hue, float saturation, float value);`<br>
+`rlRGB rlHSVToRGB(float hue, float saturation, float value);`<br>
 Takes the hue of the HSV code, the saturation of the HSV code, and the value of the HSV code.<br>
 Returns an RGB code equivalent to the given HSV code.
 

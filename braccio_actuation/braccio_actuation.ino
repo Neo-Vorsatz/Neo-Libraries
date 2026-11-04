@@ -1,7 +1,7 @@
 /*
     Program to test the Braccio actuation library 
     Author: Neo Vorsatz
-    Last updated: 2 November 2026
+    Last updated: 4 November 2026
 */
 
 #include <Arduino.h>
@@ -9,7 +9,7 @@
 
 void doMotions() {
     // Test non-blocking incrementing method
-    vector_t target = baNewVector(
+    baVector_t target = baNewVector(
         90.0f, // base <- forward
         90.0f, // joint1 <- upward
         90.0f, // joint2 <- upward

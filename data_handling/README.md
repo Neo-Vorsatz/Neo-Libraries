@@ -51,7 +51,7 @@ This library has the following dependencies:<br>
 | Source | Dependencies |
 | - | - |
 | This Repository | None |
-| Standard Library | `math.h` |
+| Standard Library | `math.h`, `string.h` |
 | Other | None |
 
 ---

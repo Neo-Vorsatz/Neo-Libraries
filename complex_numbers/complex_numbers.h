@@ -1,37 +1,41 @@
-// Complex Numbers Library, for complex number operations
-// Header file
-// by Ambesiwe Sonka and Neo Vorsatz
-// Last updated: 25 December 2025
+/*
+    Complex Numbers Library, for complex number operations
+    Header file
+    Authors: Ambesiwe Sonka and Neo Vorsatz
+    Last updated: 4 November 2026
+*/
 
-//Header guard
+// Header guard
 #ifndef COMPLEX_NUMBERS_H
 #define COMPLEX_NUMBERS_H
+
+// IMPORTS ================================
 
 //Includes
 #include <stdbool.h>
 
-//C++ compatibility
+// C++ COMPATIBILITY ================================
+
 #ifdef __cplusplus
-  extern "C" {
+	extern "C" {
 #endif
 
-/* TYPE DEFINITIONS ================================*/
+// TYPES ================================
 
-//Structure for complex numbers
+// Structure for complex numbers
 typedef struct{
-  union {
-    double real; //real component
-    double mod; //modulus or magnitude
-  };
-  union {
-    double imag; //imaginary component
-    double arg; //argument or phase
-  };
-  bool rect_form; //whether the complex number is in rectangular form or not (otherwise in polar form)
-} complex;
+	union {
+		double real; // real component
+		double mod; // modulus or magnitude
+	};
+	union {
+		double imag; // imaginary component
+		double arg; // argument or phase
+	};
+	bool rectForm; // whether the complex number is in rectangular form or not (otherwise in polar form)
+} cnComplex_t;
 
-/*================================*/
-/* CREATING ================================*/
+// CREATING ================================
 
 /**
  * @param real The real part of the complex number
@@ -39,7 +43,7 @@ typedef struct{
  * 
  * @return A complex number in rectangular form
  */
-complex cnRect(double real, double imag);
+cnComplex_t cnRect(double real, double imag);
 
 /**
  * @param mag The magnitude of the complex number
@@ -47,76 +51,74 @@ complex cnRect(double real, double imag);
  * 
  * @return A complex number in polar form
  */
-complex cnPolar(double mag, double phase);
+cnComplex_t cnPolar(double mag, double phase);
 
 /**
  * @param real The real part of the complex number
  * 
  * @return A complex number in rectangular form, with only a real component
  */
-complex cnR(double real);
+cnComplex_t cnR(double real);
 
 /**
  * @param imag The imaginary part of the complex number
  * 
  * @return A complex number in rectangular form, with only an imaginary component
  */
-complex cnI(double imag);
+cnComplex_t cnI(double imag);
 
 /**
  * @param arg The argument of the complex number
  * 
  * @return A complex number in polar form, with magnitude 1
  */
-complex cnA(double arg);
+cnComplex_t cnA(double arg);
 
-/*================================*/
-/* READING ================================*/
+// READING ================================
 
 /**
  * @param complexNum A complex number
  * 
  * @return The real component of a complex number
  */
-double cnReal(const complex *complexNum);
+double cnReal(const cnComplex_t *complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The imaginary component of a complex number
  */
-double cnImag(const complex *complexNum);
+double cnImag(const cnComplex_t *complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The magnitude of a complex number
  */
-double cnMag(const complex *complexNum);
+double cnMag(const cnComplex_t *complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The argument of a complex number
  */
-double cnArg(const complex *complexNum);
+double cnArg(const cnComplex_t *complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return Whether or not a complex number is in rectangular form
  */
-bool cnIsRect(const complex *complexNum);
+bool cnIsRect(const cnComplex_t *complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return Whether or not a complex number is in polar form
  */
-bool cnIsPolar(const complex *complexNum);
+bool cnIsPolar(const cnComplex_t *complexNum);
 
-/*================================*/
-/* UPDATING ================================*/
+// UPDATING ================================
 
 /**
  * @brief Sets the real component of a complex number
@@ -124,7 +126,7 @@ bool cnIsPolar(const complex *complexNum);
  * @param complexNum A complex number
  * @param real The new real component of the complex number
  */
-void cnSetReal(complex *complexNum, double real);
+void cnSetReal(cnComplex_t *complexNum, double real);
 
 /**
  * @brief Sets the imaginary component of a complex number
@@ -132,7 +134,7 @@ void cnSetReal(complex *complexNum, double real);
  * @param complexNum A complex number
  * @param imag The new imaginary component of the complex number
  */
-void cnSetImag(complex *complexNum, double imag);
+void cnSetImag(cnComplex_t *complexNum, double imag);
 
 /**
  * @brief Sets the magnitude of a complex number
@@ -140,7 +142,7 @@ void cnSetImag(complex *complexNum, double imag);
  * @param complexNum A complex number
  * @param mag The new magnitude of the complex number
  */
-void cnSetMag(complex *complexNum, double mag);
+void cnSetMag(cnComplex_t *complexNum, double mag);
 
 /**
  * @brief Sets the argument of a complex number
@@ -148,7 +150,7 @@ void cnSetMag(complex *complexNum, double mag);
  * @param complexNum A complex number
  * @param arg The new argument of the complex number
  */
-void cnSetArg(complex *complexNum, double arg);
+void cnSetArg(cnComplex_t *complexNum, double arg);
 
 /**
  * @brief Sets whether or not a complex number is in rectangular form
@@ -158,10 +160,9 @@ void cnSetArg(complex *complexNum, double arg);
  * @param complexNum A complex number
  * @param rect Whether or not the complex number is set to rectangular form, else polar form
  */
-void cnSetForm(complex *complexNum, bool rect);
+void cnSetForm(cnComplex_t *complexNum, bool rect);
 
-/*================================*/
-/* OPERATIONS ================================*/
+// OPERATIONS ================================
 
 /**
  * @param complexNum1 A complex number
@@ -170,21 +171,21 @@ void cnSetForm(complex *complexNum, bool rect);
  * 
  * @return Whether or not two complex numbers are equal
  */
-bool cnEqual(complex complexNum1, complex complexNum2, double tolerance);
+bool cnEqual(cnComplex_t complexNum1, cnComplex_t complexNum2, double tolerance);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The complex number in rectangular form
  */
-complex cnRectForm(complex complexNum);
+cnComplex_t cnRectForm(cnComplex_t complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The complex number in polar form
  */
-complex cnPolarForm(complex complexNum);
+cnComplex_t cnPolarForm(cnComplex_t complexNum);
 
 /**
  * @param complexNum1 A complex number
@@ -192,7 +193,7 @@ complex cnPolarForm(complex complexNum);
  * 
  * @return The sum of two complex numbers
  */
-complex cnAdd(complex complexNum1, complex complexNum2);
+cnComplex_t cnAdd(cnComplex_t complexNum1, cnComplex_t complexNum2);
 
 /**
  * @param complexNum1 A complex number
@@ -200,7 +201,7 @@ complex cnAdd(complex complexNum1, complex complexNum2);
  * 
  * @return The difference of two complex numbers
  */
-complex cnSub(complex complexNum1, complex complexNum2);
+cnComplex_t cnSub(cnComplex_t complexNum1, cnComplex_t complexNum2);
 
 /**
  * @param complexNum A complex number
@@ -208,7 +209,7 @@ complex cnSub(complex complexNum1, complex complexNum2);
  * 
  * @return The complex number multiplied by a scalar
  */
-complex cnScale(complex complexNum, double scalar);
+cnComplex_t cnScale(cnComplex_t complexNum, double scalar);
 
 /**
  * @param complexNum1 A complex number
@@ -216,7 +217,7 @@ complex cnScale(complex complexNum, double scalar);
  * 
  * @return The product of two complex numbers
  */
-complex cnMultiply(complex complexNum1, complex complexNum2);
+cnComplex_t cnMultiply(cnComplex_t complexNum1, cnComplex_t complexNum2);
 
 /**
  * @brief Calculates the quotient of two complex numbers
@@ -227,7 +228,7 @@ complex cnMultiply(complex complexNum1, complex complexNum2);
  * 
  * @return 1 (true) if the process was successful, otherwise returns 0 (false)
  */
-bool cnDivide(complex *quotient, complex numerator, complex denominator);
+bool cnDivide(cnComplex_t *quotient, cnComplex_t numerator, cnComplex_t denominator);
 
 /**
  * @param base A complex number
@@ -235,7 +236,7 @@ bool cnDivide(complex *quotient, complex numerator, complex denominator);
  * 
  * @return The complex number raised to a real power
  */
-complex cnPow(complex base, double power);
+cnComplex_t cnPow(cnComplex_t base, double power);
 
 /**
  * @param base A complex number
@@ -243,21 +244,21 @@ complex cnPow(complex base, double power);
  * 
  * @return The complex number raised to a complex power
  */
-complex cnPowComplex(complex base, complex power);
+cnComplex_t cnPowComplex(cnComplex_t base, cnComplex_t power);
 
 /**
  * @param complexNum A complex number
  * 
  * @return The conjugate of the complex number
  */
-complex cnConjugate(complex complexNum);
+cnComplex_t cnConjugate(cnComplex_t complexNum);
 
 /**
  * @param complexNum A complex number
  * 
  * @return e raised to the power of a complex number (Euler's formula)
  */
-complex cnExp(complex complexNum);
+cnComplex_t cnExp(cnComplex_t complexNum);
 
 /**
  * @brief Calculates the natural logarithm of a complex number
@@ -267,7 +268,7 @@ complex cnExp(complex complexNum);
  * 
  * @return 1 (true) if the process was successful, otherwise returns 0 (false)
  */
-bool cnLog(complex *result, complex complexNum);
+bool cnLog(cnComplex_t *result, cnComplex_t complexNum);
 
 /**
  * @param angle An angle
@@ -276,10 +277,10 @@ bool cnLog(complex *result, complex complexNum);
  */
 double cnPrincipleArg(double angle);
 
-/*================================*/
+// ================================
 
 #ifdef __cplusplus
-  }
+	}
 #endif
 
 #endif

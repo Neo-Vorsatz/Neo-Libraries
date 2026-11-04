@@ -2,7 +2,7 @@
     Module to handle the actuation of the Braccio arm
     Implementation file
     Author: Neo Vorsatz
-    Last updated: 5 October 2026
+    Last updated: 4 November 2026
 */
 
 /*
@@ -24,11 +24,13 @@ Art by               \   /             \   \\
 
 */
 
-// External includes
+// IMPORTS ================================
+
+// External
 #include <Arduino.h>
 #include <Servo.h>
 
-// Internal includes
+// Internal
 #include "braccio_actuation.h"
 
 // CONSTANTS ================================
@@ -50,7 +52,7 @@ static const int SLOTS[] = {SLOT_1, SLOT_2, SLOT_3, SLOT_4, SLOT_5, SLOT_6};
     Some values are intentionally exaggerated (out of bounds),
     to allow modification of bounds while still moving to the extrema.
 */
-static const vector_t INIT_TARGET = {
+static const baVector_t INIT_TARGET = {
     90.0f, // base
     0.0f, // joint1
     180.0f, // joint2
@@ -83,9 +85,9 @@ static const vector_t INIT_TARGET = {
 // VARIABLES ================================
 
 // Vectors describing the motion of the arm
-static vector_t currentTarget; // target position
-static vector_t currentPos; // position
-static vector_t currentFilter; // output of 1st LPF, input of 2nd LPF
+static baVector_t currentTarget; // target position
+static baVector_t currentPos; // position
+static baVector_t currentFilter; // output of 1st LPF, input of 2nd LPF
 
 // Servo motors
 static Servo baseServo;
@@ -128,7 +130,7 @@ static inline int angleToPWM(float angle) {
  * 
  * @param position The position to set the arm to
  */
-static void setPositionTrusted(vector_t position) {
+static void setPositionTrusted(baVector_t position) {
     // Set position variable
     currentPos = position;
 
@@ -220,18 +222,18 @@ bool baInit(int softStart, const int conn[6]) {
     return true;
 }
 
-vector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw) {
-    vector_t vec = {base, joint1, joint2, joint3, wrist, claw};
+baVector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw) {
+    baVector_t vec = {base, joint1, joint2, joint3, wrist, claw};
     return vec;
 }
 
 // READING ================================
 
-vector_t baGetTarget() {
+baVector_t baGetTarget() {
     return currentTarget;
 }
 
-vector_t baGetPosition() {
+baVector_t baGetPosition() {
     return currentPos;
 }
 
@@ -273,7 +275,7 @@ bool baAtTarget(float tolerance) {
 
 // CONTROLLING ================================
 
-bool baSetPosition(vector_t position) {
+bool baSetPosition(baVector_t position) {
     // Bound position
     bool bounded = baBoundPosition(&position);
 
@@ -287,7 +289,7 @@ bool baSetPosition(vector_t position) {
     return bounded;
 }
 
-bool baUpdateTarget(vector_t target) {
+bool baUpdateTarget(baVector_t target) {
     // Bound position
     bool bounded = baBoundPosition(&target);
 
@@ -325,7 +327,7 @@ void baStep() {
     setPositionTrusted(currentPos);
 }
 
-bool baMove(vector_t target) {
+bool baMove(baVector_t target) {
     // Set the target
     bool bounded = baUpdateTarget(target);
 
@@ -349,7 +351,7 @@ void baSetFilterFreq(float freq) {
 
 // MANAGEMENT ================================
 
-bool baTargetReachable(vector_t target) {
+bool baTargetReachable(baVector_t target) {
     // Check each bound
     if (target.base<BASE_MIN || target.base>BASE_MAX) {return false;}
     if (target.joint1<JOINT1_MIN || target.joint1>JOINT1_MAX) {return false;}
@@ -362,7 +364,7 @@ bool baTargetReachable(vector_t target) {
     return true;
 }
 
-bool baBoundPosition(vector_t *position) {
+bool baBoundPosition(baVector_t *position) {
     // Assume within bounds
     bool bounded = true;
 

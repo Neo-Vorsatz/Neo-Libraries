@@ -1,6 +1,8 @@
-// Programme to test the digital signal processing library
-// by Neo Vorsatz
-// Last updated: 25 December 2025
+/*
+    Programme to test the digital signal processing library
+    Author: Neo Vorsatz
+    Last updated: 4 November 2026
+*/
 
 #include "digital_signal_processing.c"
 #include <stdio.h>
@@ -8,6 +10,6 @@
 int main() {
   
 
-  //Finished
-  return 0;
+    // Finished
+    return 0;
 }

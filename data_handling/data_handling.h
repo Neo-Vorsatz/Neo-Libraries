@@ -1,18 +1,21 @@
-// Data Handling Library, for processing data
-// Header file
-// by Neo Vorsatz
-// Last updated: 27 December 2025
+/*
+    Data Handling Library, for processing data
+    Header file
+    Author: Neo Vorsatz
+    Last updated: 4 November 2026
+*/
 
-//Header guard
+// Header guard
 #ifndef DATA_HANDLING_H
 #define DATA_HANDLING_H
 
-//C++ compatibility
+// C++ COMPATIBILITY ================================
+
 #ifdef __cplusplus
-  extern "C" {
+    extern "C" {
 #endif
 
-/* SUMMING ================================*/
+// SUMMING ================================
 
 /**
  * @param data A pointer to the array of data values
@@ -31,8 +34,7 @@ double dhSum(const double data[], unsigned int length);
  */
 void dhCumSum(double write[], const double data[], unsigned int length);
 
-/*================================*/
-/* SORTING ================================*/
+// SORTING ================================
 
 /**
  * @brief Copies an array of data into another array
@@ -70,8 +72,7 @@ void dhMergeSort(double write[], const double data[], unsigned int length);
  */
 void dhReverse(double write[], const double data[], unsigned int length);
 
-/*================================*/
-/* STATISTICS ================================*/
+// STATISTICS ================================
 
 /**
  * @param data A pointer to the array of data values
@@ -181,10 +182,10 @@ double dhUpperQuartileSorted(const double sortedData[], unsigned int length);
  */
 double dhUpperQuartile(const double data[], unsigned int length);
 
-/*================================*/
+// ================================
 
 #ifdef __cplusplus
-  }
+    }
 #endif
 
 #endif

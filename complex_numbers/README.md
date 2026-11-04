@@ -10,7 +10,8 @@ With it, you can create, edit, and do computations with complex numbers, includi
 - Getting the conjugate of a complex number
 - Complex exponentiation
 
-Note: All angles are measured in radians.
+> [!NOTE]
+> All angles are measured in radians.
 
 ---
 

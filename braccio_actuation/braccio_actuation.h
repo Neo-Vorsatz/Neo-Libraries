@@ -2,7 +2,7 @@
     Module to handle the actuation of the Braccio arm
     Header file
     Author: Neo Vorsatz
-    Last updated: 2 November 2026
+    Last updated: 4 November 2026
 */
 
 /*
@@ -36,11 +36,13 @@
 #ifndef BRACCIO_ACTUATION_H
 #define BRACCIO_ACTUATION_H
 
-// External includes
+// IMPORTS ================================
+
+// External
 #include <Arduino.h>
 #include <Servo.h>
 
-// DATA STRUCTURES ================================
+// TYPES ================================
 
 typedef struct {
     float base;
@@ -49,7 +51,7 @@ typedef struct {
     float joint3;
     float wrist;
     float claw;
-} vector_t;
+} baVector_t;
 
 // CONSTANTS ================================
 
@@ -101,7 +103,7 @@ bool baInit(int softStart=BA_DEFAULT_SOFT_START, const int conn[6]=BA_DEFAULT_CO
  * 
  * @return The new vector
  */
-vector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw);
+baVector_t baNewVector(float base, float joint1, float joint2, float joint3, float wrist, float claw);
 
 // READING ================================
 
@@ -110,14 +112,14 @@ vector_t baNewVector(float base, float joint1, float joint2, float joint3, float
  * 
  * @return The desired position
  */
-vector_t baGetTarget();
+baVector_t baGetTarget();
 
 /**
  * @brief Gets the current position of the Braccio arm
  * 
  * @return The current position
  */
-vector_t baGetPosition();
+baVector_t baGetPosition();
 
 /**
  * @brief Gets the squared error between the desired position and the current position
@@ -146,7 +148,7 @@ bool baAtTarget(float tolerance=BA_POS_TOLERANCE);
  * 
  * @note This function is not recommended, because it'll cause jerking
  */
-bool baSetPosition(vector_t position);
+bool baSetPosition(baVector_t position);
 
 /**
  * @brief Updates the desired position of the Braccio arm
@@ -155,7 +157,7 @@ bool baSetPosition(vector_t position);
  * 
  * @return `true` if the position is within the mechanical constraints, otherwise `false`
  */
-bool baUpdateTarget(vector_t target);
+bool baUpdateTarget(baVector_t target);
 
 /**
  * @brief Steps the Braccio arm towards the desired position
@@ -174,7 +176,7 @@ void baStep();
  * @note This function is blocking; occupies a thread until the desired position is reached.
  * @note The function stops running when negligibly close to the desired position
  */
-bool baMove(vector_t target);
+bool baMove(baVector_t target);
 
 /**
  * @brief Sets the time constant for 1 stage of the cascaded 2nd order low-pass filter
@@ -202,7 +204,7 @@ void baSetFilterFreq(float freq);
  * 
  * @return `true` if the target is reachable, otherwise `false`
  */
-bool baTargetReachable(vector_t target);
+bool baTargetReachable(baVector_t target);
 
 /**
  * @brief Bounds a pos by the mechanical constraints
@@ -213,6 +215,6 @@ bool baTargetReachable(vector_t target);
  * 
  * @note Most controlling functions call this automatically
  */
-bool baBoundPosition(vector_t *position);
+bool baBoundPosition(baVector_t *position);
 
 #endif
